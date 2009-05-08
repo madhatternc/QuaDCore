@@ -5848,7 +5848,44 @@ void Player::UpdateHonorFields()
             SetUInt32Value(PLAYER_FIELD_KILLS, 0);
         }
     }
+	
+      // Rank show over the player.
+    uint32 HonorKills = GetUInt32Value(PLAYER_FIELD_LIFETIME_HONORBALE_KILLS);
+    uint32 victim_rank = 0;
+ 
+    if (HonorKills >= 10 && HonorKills < 50)
+        victim_rank = 1;
+    else if (HonorKills >= 50 && HonorKills < 100)
+        victim_rank = 2;
+    else if (HonorKills >= 100 && HonorKills < 150)
+        victim_rank = 3;
+    else if (HonorKills >= 150 && HonorKills < 250)
+        victim_rank = 4;
+    else if (HonorKills >= 250 && HonorKills < 500)
+        victim_rank = 5;
+    else if (HonorKills >= 500 && HonorKills < 750)
+        victim_rank = 6;
+    else if (HonorKills >= 750 && HonorKills < 1000)
+        victim_rank = 7;
+    else if (HonorKills >= 1000 && HonorKills < 1500)
+        victim_rank = 8;
+    else if (HonorKills >= 1500 && HonorKills < 2500)
+        victim_rank = 9;
+    else if (HonorKills >= 2500 && HonorKills < 5000)
+        victim_rank = 10;
+    else if (HonorKills >= 5000 && HonorKills < 7500)
+        victim_rank = 11;
+    else if (HonorKills >= 7500 && HonorKills < 10000)
+        victim_rank = 12;
+    else if (HonorKills >= 10000 && HonorKills < 15000)
+        victim_rank = 13;
+    else if (HonorKills >= 15000)
+        victim_rank = 14;
+    if (GetTeam() == HORDE && victim_rank != 0)
+        victim_rank += 14;
 
+    SetUInt32Value(PLAYER_CHOSEN_TITLE,victim_rank);
+	
     m_lastHonorUpdateTime = now;
 }
 
