@@ -18,7 +18,7 @@
  
 #ifndef __REVISION_NR_H__
 #define __REVISION_NR_H__
- #define REVISION_NR "2"
+ #define REVISION_NR "3"
 #endif // __REVISION_NR_H__
 #ifndef __REVISION_DR_H__
 #define REVISION_DR "8.05.2009"

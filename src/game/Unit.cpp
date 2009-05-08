@@ -10452,6 +10452,7 @@ void Unit::setDeathState(DeathState s)
         DeleteThreatList();
         getHostilRefManager().deleteReferences();
         ClearComboPointHolders();                           // any combo points pointed to unit lost at it death
+        StopMoving();
 
         if(IsNonMeleeSpellCasted(false))
             InterruptNonMeleeSpells(false);
