@@ -1,0 +1,76 @@
+/* Copyright (C) 2009 QuadCore <http://github.com/QuaDCore/QuaDCore/tree/master>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#ifndef QUAD_SYSTEMCONFIG_H
+#define QUAD_SYSTEMCONFIG_H
+
+#ifndef _PACKAGENAME
+#define _PACKAGENAME "QuadCore "
+#endif
+
+#include "Platform/Define.h"
+#include "revision.h" //-----here u are ------ _REVISION is the magic key
+#include "revision_nr.h"
+
+#ifndef _VERSION
+#if PLATFORM == PLATFORM_WINDOWS
+# define _VERSION(REVD,REVT,REVN,REVH) "0.1.0-DEV" " (" REVD " " REVT " REVISION_NR " REVN " - " REVH ")"
+#else
+# define _VERSION(REVD,REVT,REVN,REVH) "@VERSION@" " (" REVD " " REVT " REVISION_NR " REVN " - " REVH ")"
+#endif
+#endif
+
+// Format is YYYYMMDDRR where RR is the change in the conf file
+// for that day.
+#ifndef _QuadCoreCONFVERSION
+# define _QuadCoreCONFVERSION 2008022901
+#endif
+#ifndef _LOGONCONFVERSION
+# define _LOGONCONFVERSION 2007062001
+#endif
+
+#if QuadCore_ENDIAN == QuadCore_BIGENDIAN
+# define _ENDIAN_STRING "big-endian"
+#else
+# define _ENDIAN_STRING "little-endian"
+#endif
+
+// The path to config files
+#ifndef SYSCONFDIR
+#  define SYSCONFDIR        ""
+#endif
+
+#if PLATFORM == PLATFORM_WINDOWS
+# ifdef _WIN64
+#  define _ENDIAN_PLATFORM "Win64 (" _ENDIAN_STRING ")"
+# else
+#  define _ENDIAN_PLATFORM "Win32 (" _ENDIAN_STRING ")"
+# endif
+# define _QuadCore_CONFIG  SYSCONFDIR"quadcore.conf"
+# define _LOGON_CONFIG   SYSCONFDIR"logon.conf"
+#else
+# define _ENDIAN_PLATFORM "Unix (" _ENDIAN_STRING ")"
+# define _QuadCore_CONFIG  SYSCONFDIR"quadcore.conf"
+# define _LOGON_CONFIG  SYSCONFDIR"logon.conf"
+#endif
+
+
+#define DEFAULT_PLAYER_LIMIT 100
+#define DEFAULT_WORLDSERVER_PORT 8085                       //8129
+#define DEFAULT_LOGONSERVER_PORT 3724
+#define DEFAULT_SOCKET_SELECT_TIME 10000
+#endif

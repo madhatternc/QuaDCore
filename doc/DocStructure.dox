@@ -1,0 +1,31 @@
+/*! \mainpage
+ *
+ * \section intro_sec Introduction and links
+ * This is the source documentation for the \b %QuadCore (Massive Network Game %Object Server) project.\n
+ * %QuadCore is an object-oriented Massively Multiplayer Online Role-Playing Game Server (MMORPGS).\n
+ * The project documentation and the bug tracker can be found on the <A HREF="http://www.QuadCoreproject.org/trac/wiki">%QuadCore wiki</A>.
+ *
+ * \section begin Where to begin?
+ * If you are interested in understanding the source code of this project you can begin
+ * - <A HREF="http://www.QuadCoreproject.org/trac/wiki/CodeFeatures">On the wiki</A> to get an overview of the different modules of the server
+ * - <A HREF="./modules.html">In this source doumentation</A>, starting at the module hierarchy
+ */
+ 
+/*! \defgroup logon Logon Daemon
+ */
+ 
+/*! \defgroup QuadCore QuadCore Deamon
+ */
+
+/*! \defgroup quadcore Daemon starter
+    \ingroup QuadCore
+ */
+ 
+/*! \defgroup u2w User Connections
+    \ingroup QuadCore
+ */ 
+
+/*! \defgroup world The World
+    \ingroup QuadCore
+ */ 
+

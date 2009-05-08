@@ -1,0 +1,18 @@
+<?php
+
+// Configuration.
+// Logon database.
+$r_db = "logon";
+// IP (and port).
+$ip = "127.0.0.1:3306";
+// Username.
+$user = "quad";
+// Password.
+$pass = "quad";
+// Site title.
+$title = "Registration Form";
+$title2 = "Some Server";
+// End config.
+
+
+?>

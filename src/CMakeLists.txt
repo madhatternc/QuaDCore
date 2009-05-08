@@ -1,0 +1,6 @@
+add_subdirectory(bindings)
+add_subdirectory(framework)
+add_subdirectory(game)
+add_subdirectory(shared)
+add_subdirectory(quadcore)
+add_subdirectory(quadlogon)
