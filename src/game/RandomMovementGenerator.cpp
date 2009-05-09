@@ -55,6 +55,9 @@ RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
     bool is_land_ok  = creature.canWalk();
     bool is_water_ok = creature.canSwim();
     bool is_air_ok   = creature.canFly();
+	
+    for(uint32 i = 0;; ++i)
+    {
 
     const float angle = rand_norm()*(M_PI*2);
     const float range = rand_norm()*wander_distance;
@@ -69,6 +72,12 @@ RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
     Quad::NormalizeMapCoord(ny);
 
     dist = (nx - X)*(nx - X) + (ny - Y)*(ny - Y);
+	
+    if(i == 5)
+    {
+        nz = Z;
+        break;
+    }
 
     if (is_air_ok) // 3D system above ground and above water (flying mode)
     {
@@ -77,7 +86,7 @@ RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
         float tz = map->GetHeight(nx, ny, nz-2.0f, false); // Map check only, vmap needed here but need to alter vmaps checks for height.
         float wz = map->GetWaterLevel(nx, ny);
         if (tz >= nz || wz >= nz)
-            return; // Problem here, we must fly above the ground and water, not under. Let's try on next tick
+            continue; // Problem here, we must fly above the ground and water, not under. Let's try on next tick
     }
     //else if (is_water_ok) // 3D system under water and above ground (swimming mode)
     else // 2D only
@@ -93,9 +102,12 @@ RandomMovementGenerator<Creature>::_setRandomLocation(Creature &creature)
             {
                 nz = map->GetHeight(nx,ny,Z+dist-2.0f,true); // Vmap Higher
                 if (fabs(nz-Z)>dist)
-                    return; // let's forget this bad coords where a z cannot be find and retry at next tick
+                    continue; // let's forget this bad coords where a z cannot be find and retry at next tick
             }
         }
+    }
+
+    break;		
     }
 
     Traveller<Creature> traveller(creature);
@@ -128,7 +140,8 @@ RandomMovementGenerator<Creature>::Initialize(Creature &creature)
     if(!creature.isAlive())
         return;
 
-    wander_distance = creature.GetRespawnRadius();
+    if(!wander_distance)
+        wander_distance = creature.GetRespawnRadius();
 
     if (creature.canFly())
         creature.AddUnitMovementFlag(MOVEMENTFLAG_FLYING2);
