@@ -6816,6 +6816,9 @@ void AuraEffect::HandleAuraConvertRune(bool apply, bool Real)
 
 void AuraEffect::HandleAuraModStun(bool apply, bool Real)
 {
+    if(m_target->isInFlight())
+        return;
+
     if(!Real)
         return;
 
