@@ -6972,7 +6972,7 @@ void Aura::UnregisterSingleCastAura()
     }
 }
 
-void Aura::HandleAuraSafeFall( bool Apply, bool Real )
+void AuraEffect::HandleAuraSafeFall( bool Apply, bool Real )
 {
     // implemented in WorldSession::HandleMovementOpcodes
 
