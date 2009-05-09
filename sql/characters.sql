@@ -316,9 +316,9 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `character_achievement`;
 CREATE TABLE `character_achievement` (
-  `guid` int(11) NOT NULL,
-  `achievement` int(11) NOT NULL,
-  `date` int(11) NOT NULL,
+  `guid` int(11) unsigned NOT NULL,
+  `achievement` int(11) unsigned  NOT NULL,
+  `date` bigint(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`guid`,`achievement`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -337,10 +337,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `character_achievement_progress`;
 CREATE TABLE `character_achievement_progress` (
-  `guid` int(11) NOT NULL,
-  `criteria` int(11) NOT NULL,
-  `counter` int(11) NOT NULL,
-  `date` int(11) NOT NULL,
+  `guid` int(11) unsigned NOT NULL,
+  `criteria` int(11) unsigned NOT NULL,
+  `counter` int(11) unsigned NOT NULL,
+  `date` bigint(11) unsigned NOT NULL default '0',
   PRIMARY KEY  (`guid`,`criteria`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -742,7 +742,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `character_tutorial`;
 CREATE TABLE `character_tutorial` (
   `account` bigint(20) unsigned NOT NULL auto_increment COMMENT 'Account Identifier',
-  `logonid` int(11) unsigned NOT NULL default '0' COMMENT 'Logon Identifier',
+  `logonid` int(11) unsigned NOT NULL default '0' COMMENT 'logon Identifier',
   `tut0` int(11) unsigned NOT NULL default '0',
   `tut1` int(11) unsigned NOT NULL default '0',
   `tut2` int(11) unsigned NOT NULL default '0',
