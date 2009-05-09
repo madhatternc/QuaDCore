@@ -306,6 +306,8 @@ Guardian::Guardian(SummonPropertiesEntry const *properties, Unit *owner) : Minio
 void Guardian::InitStats(uint32 duration)
 {
     Minion::InitStats(duration);
+	
+    InitStatsForLevel(m_owner->getLevel());
 
     if(m_owner->GetTypeId() == TYPEID_PLAYER)
         m_charmInfo->InitCharmCreateSpells();
