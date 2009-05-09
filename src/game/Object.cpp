@@ -1327,6 +1327,21 @@ bool WorldObject::HasInArc(const float arcangle, const WorldObject* obj) const
     return (( angle >= lborder ) && ( angle <= rborder ));
 }
 
+bool WorldObject::IsInBetween(const WorldObject *obj1, const WorldObject *obj2, float size) const
+{
+    if(GetPositionX() > std::max(obj1->GetPositionX(), obj2->GetPositionX())
+        || GetPositionX() < std::min(obj1->GetPositionX(), obj2->GetPositionX())
+        || GetPositionY() > std::max(obj1->GetPositionY(), obj2->GetPositionY())
+        || GetPositionY() < std::min(obj1->GetPositionY(), obj2->GetPositionY()))
+        return false;
+
+    if(!size)
+        size = GetObjectSize() / 2;
+
+    float angle = obj1->GetAngle(this) - obj1->GetAngle(obj2);
+    return abs(sin(angle)) * GetExactDistance2d(obj1->GetPositionX(), obj1->GetPositionY()) < size;
+}
+
 void WorldObject::GetRandomPoint( float x, float y, float z, float distance, float &rand_x, float &rand_y, float &rand_z) const
 {
     if(distance==0)
@@ -1675,6 +1690,8 @@ TempSummon *Map::SummonCreature(uint32 entry, float x, float y, float z, float a
         delete summon;
         return NULL;
     }
+	
+    summon->SetHomePosition(x, y, z, angle);
 
     summon->InitStats(duration);
     Add((Creature*)summon);
@@ -1698,7 +1715,6 @@ TempSummon* WorldObject::SummonCreature(uint32 entry, float x, float y, float z,
     if(!pCreature)
         return NULL;
 
-    pCreature->SetHomePosition(x, y, z, ang);
     pCreature->SetTempSummonType(spwtype);
 
     return pCreature;
