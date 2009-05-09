@@ -5798,6 +5798,8 @@ void AuraEffect::PeriodicTick()
             sLog.outDetail("PeriodicTick: %u (TypeId: %u) attacked %u (TypeId: %u) for %u dmg inflicted by %u abs is %u",
                 GUID_LOPART(GetCasterGUID()), GuidHigh2TypeId(GUID_HIPART(GetCasterGUID())), m_target->GetGUIDLow(), m_target->GetTypeId(), pdamage, GetId(),absorb);
 
+            pCaster->DealDamageMods(m_target,pdamage,&absorb);
+
             WorldPacket data(SMSG_PERIODICAURALOG, (21+16));// we guess size
             data.append(m_target->GetPackGUID());
             data.appendPackGUID(GetCasterGUID());
@@ -5985,7 +5987,7 @@ void AuraEffect::PeriodicTick()
                     uint32 absorb = 0;
                     pCaster->DealDamageMods(pCaster,damage,&absorb);
                     pCaster->SendSpellNonMeleeDamageLog(pCaster, GetId(), damage, GetSpellSchoolMask(GetSpellProto()), absorb, 0, false, 0, false);
- 
+
                     CleanDamage cleanDamage =  CleanDamage(0, BASE_ATTACK, MELEE_HIT_NORMAL );
                     pCaster->DealDamage(pCaster, damage, &cleanDamage, NODAMAGE, GetSpellSchoolMask(GetSpellProto()), GetSpellProto(), true);
                 }
@@ -6122,8 +6124,6 @@ void AuraEffect::PeriodicTick()
             sLog.outDetail("PeriodicTick: %u (TypeId: %u) energize %u (TypeId: %u) for %u dmg inflicted by %u",
                 GUID_LOPART(GetCasterGUID()), GuidHigh2TypeId(GUID_HIPART(GetCasterGUID())), m_target->GetGUIDLow(), m_target->GetTypeId(), amount, GetId());
 
-            pCaster->DealDamageMods(m_target,pdamage,&absorb);
-
             WorldPacket data(SMSG_PERIODICAURALOG, (21+16));// we guess size
             data.append(m_target->GetPackGUID());
             data.appendPackGUID(GetCasterGUID());
@@ -6205,7 +6205,7 @@ void AuraEffect::PeriodicTick()
             SpellNonMeleeDamage damageInfo(pCaster, m_target, spellProto->Id, spellProto->SchoolMask);
             //no SpellDamageBonus for burn mana
             pCaster->CalculateSpellDamageTaken(&damageInfo, gain, spellProto);
-			
+
             pCaster->DealDamageMods(damageInfo.target,damageInfo.damage,&damageInfo.absorb);
 
             pCaster->SendSpellNonMeleeDamageLog(&damageInfo);
