@@ -1102,6 +1102,9 @@ void Spell::DoAllEffectOnTarget(TargetInfo *target)
 
 SpellMissInfo Spell::DoSpellHitOnUnit(Unit *unit, const uint32 effectMask)
 {
+    if (m_caster->hasUnitState(UNIT_STAT_DIED)) 
+        return SPELL_MISS_EVADE;
+
     if(!unit || !effectMask)
         return SPELL_MISS_EVADE;
 
